@@ -1,11 +1,14 @@
 import streamlit as st
-# import requests
 from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
-# from snowflake.snowpark import Session
+from snowflake.snowpark import Session
 import pandas as pd
 
-session = get_active_session()
+def create_session():
+    connection_parameters = st.secrets["snowflake"]
+    return Session.builder.configs(connection_parameters).create()
+
+session = create_session()
 
 st.title("Zena's Amazing Athleisure Catalog")
 
